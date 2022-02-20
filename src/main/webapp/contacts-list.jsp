@@ -27,10 +27,19 @@
 		</nav>
 	</header>
 	<br>
-
 	<div class="row">
-		s
 		<div class="container">
+			<div class="float-right">
+				<form id="searchForm" action="recherche">
+					<div class="input-group mb-3">
+						<input id="email-id" name="value"
+							class="form-control form-control-lg" placeholder="Recherche ici" />
+						&nbsp;&nbsp;
+						<button type="submit" class="input-group-text btn-success">
+							Rechercher</button>
+					</div>
+				</form>
+			</div>
 			<h3 class="text-center">Liste des contacts</h3>
 			<hr>
 			<div class="container text-left">

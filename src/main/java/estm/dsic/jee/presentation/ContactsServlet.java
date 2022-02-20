@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import estm.dsic.jee.business.ContactServices;
 import estm.dsic.jee.dal.Contact;
 
@@ -56,6 +57,9 @@ public class ContactsServlet extends HttpServlet {
 				break;
 			case "/update":
 				update(request, response);
+				break;
+			case "/recherche":
+				recherche(request, response);
 				break;
 			default:
 				list(request, response);
@@ -129,6 +133,21 @@ public class ContactsServlet extends HttpServlet {
 		contactServices.delete(id);
 		response.sendRedirect("list");
 
+	}
+
+	private void recherche(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, IOException, ServletException {
+		ArrayList<Contact> conList = null;
+		HttpSession session = request.getSession();
+		String val = request.getParameter("value");
+
+		if (val != null) {
+			conList = contactServices.getAll(val);
+			session.setAttribute("listContacts", conList);
+		}
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("contacts-list.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

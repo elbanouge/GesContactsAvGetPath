@@ -7,14 +7,16 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous"></head>
+	crossorigin="anonymous">
+</head>
 <body>
 
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
 			style="background-color: tomato">
 			<div>
-				<a href="<%=request.getContextPath()%>" class="navbar-brand"> Gestion des contacts </a>
+				<a href="<%=request.getContextPath()%>" class="navbar-brand">
+					Gestion des contacts </a>
 			</div>
 
 			<ul class="navbar-nav">
@@ -46,7 +48,8 @@
 				</caption>
 
 				<c:if test="${contact != null}">
-					<input type="hidden" name="id" value="<c:out value='${contact.id_contact}' />" />
+					<input type="hidden" name="id"
+						value="<c:out value='${contact.id_contact}' />" />
 				</c:if>
 
 				<fieldset class="form-group">
@@ -60,7 +63,7 @@
 						value="<c:out value='${contact.adresse}' />" class="form-control"
 						name="adresse">
 				</fieldset>
-				
+
 				<fieldset class="form-group">
 					<label>Email de contact</label> <input type="text"
 						value="<c:out value='${contact.email}' />" class="form-control"
