@@ -21,9 +21,9 @@ public class ContactServices implements IContactServices {
 	}
 
 	@Override
-	public ArrayList<Contact> getAll(String req) {
+	public ArrayList<Contact> getAll(String req, int id) {
 		// TODO Auto-generated method stub
-		return contactDao.getContacts(req);
+		return contactDao.getContacts(req, id);
 	}
 
 	@Override

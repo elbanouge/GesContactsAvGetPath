@@ -17,7 +17,7 @@ public class ContactDao {
 	public boolean addContact(Contact contact) {
 		boolean bool = false;
 
-		String req = "INSERT INTO `gestioncontacts`.`contacts` (`name`, `adresse`, `email`, `tel`) VALUES (?, ?, ?, ?);";
+		String req = "INSERT INTO `gestioncontacts`.`contacts` (`name`, `adresse`, `email`, `tel`, `id_us`) VALUES (?, ?, ?, ?, ?);";
 		try {
 
 			PreparedStatement ps = this.con.prepareStatement(req);
@@ -25,6 +25,7 @@ public class ContactDao {
 			ps.setString(2, contact.getAdresse());
 			ps.setString(3, contact.getEmail());
 			ps.setString(4, contact.getTel());
+			ps.setInt(5, contact.getId_user());
 
 			if (ps.executeUpdate() >= 1) {
 				bool = true;
@@ -38,13 +39,13 @@ public class ContactDao {
 		return bool;
 	}
 
-	public ArrayList<Contact> getContacts(String val) {
+	public ArrayList<Contact> getContacts(String val, int id) {
 		ArrayList<Contact> arrayList = new ArrayList<Contact>();
-		String req = "SELECT * FROM `gestioncontacts`.`contacts`";
+		String req = "SELECT * FROM `gestioncontacts`.`contacts` where id_us = " + id;
 
 		if (val != null) {
 			req = "SELECT * FROM `gestioncontacts`.`contacts` where name like '%" + val + "%' or adresse like '%" + val
-					+ "%' or email like '%" + val + "%'or tel like '%" + val + "%' ";
+					+ "%' or email like '%" + val + "%'or tel like '%" + val + "%' HAVING id_us = " + id;
 		}
 
 		try {

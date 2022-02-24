@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import estm.dsic.jee.business.ContactServices;
 import estm.dsic.jee.dal.Contact;
+import estm.dsic.jee.dal.User;
 
 /**
  * Servlet implementation class ContactsServlet
  */
-@WebServlet("/")
+
+@WebServlet(urlPatterns = { "/new", "/insert", "/delete", "/edit", "/update", "/recherche", "/list", "/logout" })
 public class ContactsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ContactServices contactServices;
@@ -41,6 +43,8 @@ public class ContactsServlet extends HttpServlet {
 
 		String action = request.getServletPath();
 
+		System.out.println(action);
+
 		try {
 			switch (action) {
 			case "/new":
@@ -61,8 +65,11 @@ public class ContactsServlet extends HttpServlet {
 			case "/recherche":
 				recherche(request, response);
 				break;
-			default:
+			case "/list":
 				list(request, response);
+				break;
+			case "/logout":
+				logout(request, response);
 				break;
 			}
 		} catch (SQLException ex) {
@@ -82,8 +89,10 @@ public class ContactsServlet extends HttpServlet {
 
 	private void list(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 
-		ArrayList<Contact> contactsList = contactServices.getAll(null);
+		ArrayList<Contact> contactsList = contactServices.getAll(null, user.getId());
 		request.setAttribute("listContacts", contactsList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("contacts-list.jsp");
 		dispatcher.forward(request, response);
@@ -91,7 +100,7 @@ public class ContactsServlet extends HttpServlet {
 
 	private void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("contact-form.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("add-form.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -99,19 +108,23 @@ public class ContactsServlet extends HttpServlet {
 			throws SQLException, ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
 		Contact contact = contactServices.getContactByID(id);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("contact-form.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("edit-form.jsp");
 		request.setAttribute("contact", contact);
 		dispatcher.forward(request, response);
 
 	}
 
 	private void insert(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 
 		String nom = request.getParameter("nom");
 		String adresse = request.getParameter("adresse");
 		String email = request.getParameter("email");
 		String tel = request.getParameter("tel");
-		Contact contact = new Contact(nom, adresse, email, tel);
+
+		Contact contact = new Contact(nom, adresse, email, tel, user.getId());
+
 		contactServices.add(contact);
 		response.sendRedirect("list");
 	}
@@ -140,14 +153,21 @@ public class ContactsServlet extends HttpServlet {
 		ArrayList<Contact> conList = null;
 		HttpSession session = request.getSession();
 		String val = request.getParameter("value");
+		User user = (User) session.getAttribute("user");
 
 		if (val != null) {
-			conList = contactServices.getAll(val);
+			conList = contactServices.getAll(val, user.getId());
 			session.setAttribute("listContacts", conList);
 		}
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("contacts-list.jsp");
 		dispatcher.forward(request, response);
+	}
+
+	private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		HttpSession session = request.getSession();
+		session.removeAttribute("user");
+		response.sendRedirect("login.jsp");
 	}
 
 }

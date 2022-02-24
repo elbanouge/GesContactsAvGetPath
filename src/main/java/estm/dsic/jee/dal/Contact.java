@@ -6,9 +6,19 @@ public class Contact {
 	private String adresse;
 	private String email;
 	private String tel;
+	private int id_user;
 
 	public Contact() {
 
+	}
+
+	public Contact(String nom, String adresse, String email, String tel, int id_user) {
+		super();
+		this.nom = nom;
+		this.adresse = adresse;
+		this.email = email;
+		this.tel = tel;
+		this.id_user = id_user;
 	}
 
 	public Contact(String nom, String adresse, String email, String tel) {
@@ -64,5 +74,13 @@ public class Contact {
 
 	public void setTel(String tel) {
 		this.tel = tel;
+	}
+
+	public int getId_user() {
+		return id_user;
+	}
+
+	public void setId_user(int id_user) {
+		this.id_user = id_user;
 	}
 }

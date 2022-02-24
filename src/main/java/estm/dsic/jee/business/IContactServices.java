@@ -11,7 +11,7 @@ public interface IContactServices {
 
 	public boolean delete(int id);
 
-	public ArrayList<Contact> getAll(String req);
+	public ArrayList<Contact> getAll(String req, int id);
 
 	public Contact getContactByID(int id);
 }

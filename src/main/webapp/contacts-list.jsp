@@ -1,22 +1,30 @@
+<%@page import="estm.dsic.jee.dal.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+String val = request.getParameter("value");
+User user = (User) session.getAttribute("user");
+
+if (user == null) {
+	System.out.println("Erreur !!!!!!");
+	response.sendRedirect("index.jsp");
+}
+%>
 <html>
 <head>
 <title>Gestion des contacts</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
+<link href="./css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
 </head>
 </head>
 <body>
 
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
-			style="background-color: tomato">
+			style="background-color: #2d5abb;">
 			<div>
-				<a href="<%=request.getContextPath()%>" class="navbar-brand">
+				<a href="<%=request.getContextPath()%>/list" class="navbar-brand">
 					Gestion des contacts </a>
 			</div>
 
@@ -40,11 +48,24 @@
 					</div>
 				</form>
 			</div>
+			<br>
 			<h3 class="text-center">Liste des contacts</h3>
 			<hr>
-			<div class="container text-left">
-				<a href="<%=request.getContextPath()%>/new" class="btn btn-success">Ajouter
-					nouveau contact</a>
+			<div class="container">
+
+				<div class="float-left">
+					<a href="<%=request.getContextPath()%>/new" class="btn btn-success">Ajouter
+						nouveau contact</a>
+				</div>
+				<div class="float-right">
+					<form id="logoutForm" action="./logout">
+						<label style="font-size: 24px;">Bienvenue (e) : <%=user.getName()%>
+							&nbsp; &nbsp; &nbsp;
+						</label>
+						<button type="submit" class="btn btn-primary">Se
+							déconnecter</button>
+					</form>
+				</div>
 			</div>
 			<br>
 			<table class="table table-bordered">
