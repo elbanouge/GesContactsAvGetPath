@@ -16,7 +16,7 @@ public class UserDao {
 		boolean set = false;
 		try {
 			// Insert register data to database
-			String query = "insert into users(name,email,password) values(?,?,?)";
+			String query = "INSERT INTO users(name, email, password) values(?, ?, ?)";
 
 			PreparedStatement pt = this.con.prepareStatement(query);
 			pt.setString(1, user.getName());
@@ -35,7 +35,7 @@ public class UserDao {
 	public User login(String name, String pass) {
 		User usr = null;
 		try {
-			String query = "select * from users where name=? and password=?";
+			String query = "SELECT * FROM users WHERE name=? and password=?";
 			PreparedStatement pst = this.con.prepareStatement(query);
 			pst.setString(1, name);
 			pst.setString(2, pass);

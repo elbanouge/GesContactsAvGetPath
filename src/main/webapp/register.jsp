@@ -23,7 +23,7 @@
 				<p>Mot de passe</p>
 				<input type="password" placeholder="Mot de passe de l'utilisateur"
 					name="password" required><input type="submit"
-					value="S'inscrire"><a href="index.jsp">Vous avez déjà
+					value="S'inscrire"><a href="login.jsp">Vous avez déjà
 					un compte ?</a>
 			</form>
 		</div>

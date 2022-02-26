@@ -21,8 +21,8 @@
 				<p>Mot de passe</p>
 				<input type="password" placeholder="Mot de passe de l'utilisateur"
 					name="password" required> <input type="submit"
-					value="Connexion"> <a href="#">Mot de passe oublié?</a><br>
-				<a href="register.jsp">Créer un nouveau compte</a>
+					value="Connexion"><a href="register.jsp">Créer un
+					nouveau compte</a>
 			</form>
 		</div>
 	</div>

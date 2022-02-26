@@ -8,18 +8,17 @@ User user = (User) session.getAttribute("user");
 
 if (user == null) {
 	System.out.println("Erreur !!!!!!");
-	response.sendRedirect("index.jsp");
-}
+	response.sendRedirect("login.jsp");
+} else {
 %>
 <html>
 <head>
-<title>Gestion des contacts</title>
+<title>Gestion des contacts avec JSP</title>
 <link href="./css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
 </head>
 </head>
 <body>
-
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
 			style="background-color: #2d5abb;">
@@ -76,12 +75,12 @@ if (user == null) {
 						<th>Adresse</th>
 						<th>Email</th>
 						<th>Telephone</th>
-						<th>Actions</th>
+						<th colspan="2" style="text-align: center;">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="con" items="${listContacts}">
 
+					<c:forEach var="con" items="${listContacts}">
 						<tr>
 							<td><c:out value="${con.id_contact}" /></td>
 							<td><c:out value="${con.nom}" /></td>
@@ -89,8 +88,8 @@ if (user == null) {
 							<td><c:out value="${con.email}" /></td>
 							<td><c:out value="${con.tel}" /></td>
 							<td><a href="edit?id=<c:out value='${con.id_contact}' />">Modifier</a>
-								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="delete?id=<c:out value='${con.id_contact}' />">Supprimer</a></td>
+							<td><a href="delete?id=<c:out value='${con.id_contact}'/>"
+								onclick="return confirm('Etes-vous sûr que vous voulez supprimer?')">Supprimer</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -98,5 +97,12 @@ if (user == null) {
 			</table>
 		</div>
 	</div>
+	<script type="text/javascript" src="./js/jquery-3.2.1.slim.min.js"></script>
+	<script type="text/javascript" src="./js/popper.min.js"></script>
+	<script type="text/javascript" src="./js/bootstrap.min.js"></script>
 </body>
 </html>
+
+<%
+}
+%>

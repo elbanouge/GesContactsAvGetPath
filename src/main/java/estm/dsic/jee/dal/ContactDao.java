@@ -17,7 +17,7 @@ public class ContactDao {
 	public boolean addContact(Contact contact) {
 		boolean bool = false;
 
-		String req = "INSERT INTO `gestioncontacts`.`contacts` (`name`, `adresse`, `email`, `tel`, `id_us`) VALUES (?, ?, ?, ?, ?);";
+		String req = "INSERT INTO contacts (name, adresse, email, tel, id_us) VALUES (?, ?, ?, ?, ?);";
 		try {
 
 			PreparedStatement ps = this.con.prepareStatement(req);
@@ -41,10 +41,10 @@ public class ContactDao {
 
 	public ArrayList<Contact> getContacts(String val, int id) {
 		ArrayList<Contact> arrayList = new ArrayList<Contact>();
-		String req = "SELECT * FROM `gestioncontacts`.`contacts` where id_us = " + id;
+		String req = "SELECT * FROM contacts where id_us = " + id;
 
 		if (val != null) {
-			req = "SELECT * FROM `gestioncontacts`.`contacts` where name like '%" + val + "%' or adresse like '%" + val
+			req = "SELECT * FROM contacts where name like '%" + val + "%' or adresse like '%" + val
 					+ "%' or email like '%" + val + "%'or tel like '%" + val + "%' HAVING id_us = " + id;
 		}
 
@@ -68,7 +68,7 @@ public class ContactDao {
 	public boolean modContact(Contact contact) {
 		boolean bool = false;
 
-		String req = "UPDATE `gestioncontacts`.`contacts` SET `name`=?, `adresse`=?, `email`=?, `tel`=? WHERE  `id_contact`=?;";
+		String req = "UPDATE contacts SET name =?,  adresse =?,  email =?,  tel =? WHERE   id_contact =?;";
 		try {
 
 			PreparedStatement ps = con.prepareStatement(req);
@@ -92,7 +92,7 @@ public class ContactDao {
 
 	public Contact getContactByID(int idCon) {
 		Contact contact = null;
-		String req = "SELECT * FROM `gestioncontacts`.`contacts` WHERE `id_contact` =" + idCon + ";";
+		String req = "SELECT * FROM contacts WHERE id_contact  =" + idCon + ";";
 		try {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(req);
@@ -112,7 +112,7 @@ public class ContactDao {
 	public boolean delContact(int idCon) {
 		boolean bool = false;
 
-		String req = "DELETE FROM `gestioncontacts`.`contacts` WHERE  `id_contact`=?;";
+		String req = "DELETE FROM contacts WHERE id_contact =?;";
 		try {
 
 			PreparedStatement ps = con.prepareStatement(req);

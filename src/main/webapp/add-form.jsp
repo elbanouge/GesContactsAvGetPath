@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<title>Gestion Contacts</title>
+<title>Gestion des contacts avec JSP</title>
 <link href="./css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
 </head>
@@ -11,7 +11,7 @@
 
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
-			style="background-color: tomato">
+			style="background-color: #2d5abb;">
 			<div>
 				<a href="<%=request.getContextPath()%>/list" class="navbar-brand">
 					Gestion des contacts </a>

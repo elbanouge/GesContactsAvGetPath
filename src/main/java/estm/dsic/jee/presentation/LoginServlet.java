@@ -42,6 +42,8 @@ public class LoginServlet extends HttpServlet {
 		User user = services.auth(logename, logpass);
 
 		if (user != null) {
+			System.out.println("*****" + user.getId());
+
 			HttpSession session = request.getSession();
 
 			session.setAttribute("user", user);
